@@ -1,21 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+log() {
+  printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$1"
+}
+
 PROFILE="${AWS_PROFILE:-default}"
 
 command -v aws >/dev/null 2>&1 || {
-  echo -e "AWS CLI not installed"
+  log "AWS CLI not installed"
   exit 1
 }
 
 aws configure list-profiles | grep -qx "$PROFILE" || {
-  echo -e "AWS profile '$PROFILE' not configured"
+  log "AWS profile '$PROFILE' not configured"
   exit 1
 }
 
 aws sts get-caller-identity >/dev/null 2>&1 || {
-  echo -e "AWS credentials invalid or expired"
+  log "AWS credentials invalid or expired"
   exit 1
 }
 
-echo -e "AWS ready (profile: $PROFILE)"
+log "AWS ready (profile: $PROFILE)"

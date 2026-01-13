@@ -11,15 +11,13 @@ log "Checking AWS configuration..."
 log "Checking Terraform CLI..."
 ./terraform.sh
 
-log "Validating Terraform state bucket..."
-./bucket.sh "$1"
+# log "Validating Terraform state bucket..."
+# ./bucket.sh "$1"
 
 log "All prerequisite checks completed successfully."
 
 log "Starting Client.."
 
-client_path="/home/glxcier/Second/cloud/AutoForge/client"
-
-cd $client_path
+cd "$(pwd)/../../client"
 
 pnpm dev

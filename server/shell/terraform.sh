@@ -2,12 +2,16 @@
 
 set -euo pipefail
 
+log() {
+  printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$1"
+}
+
 tf=$(terraform --version | grep Terraform | wc -l)
 
 if [ $tf -eq 1 ]; then
-    echo -e "Terraform Ready!"
+    log "Terraform Ready!"
 else {
-    echo -e "Terraform CLI not installed!"
+    log "Terraform CLI not installed!"
     exit 1
 }
 fi

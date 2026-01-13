@@ -13,7 +13,9 @@ func main() {
 
 	app.Use("/health", service.Health)
 
-	app.Post("/terraform", service.CheckTF)
+	app.Post("/bucket", service.BucketExists)
+	app.Delete("/bucket", service.DeleteBucket)
+	app.Post("/bucket/new", service.CreateBucket)
 
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen(":8000"))
 }
